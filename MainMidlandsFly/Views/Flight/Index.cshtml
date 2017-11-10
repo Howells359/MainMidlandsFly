@@ -9,6 +9,13 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<form asp-controller="Flight" asp-action="Index">
+    <p>
+        Title: <input type="text" name="IDSEARCH">
+        <input type="submit" value="Search For Results" />
+    </p>
+</form>
 <table class="table">
     <thead>
         <tr>

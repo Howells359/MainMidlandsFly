@@ -18,28 +18,17 @@ namespace MainMidlandsFly.Controllers
             _context = context;
         }
 
-        // GET: Crew
-        public async Task<IActionResult> Index()
+// GET: Crew/Details/5
+        public async Task<IActionResult> Index(string IDSEARCH)
         {
-            return View(await _context.Crew.ToListAsync());
-        }
-
-        // GET: Crew/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
+            var Crew = from a in _context.Crew
+                         select a;
+            if (!String.IsNullOrEmpty(IDSEARCH))
             {
-                return NotFound();
+                Crew = Crew.Where(a => a.CrewID.Contains(IDSEARCH));
             }
 
-            var crew = await _context.Crew
-                .SingleOrDefaultAsync(m => m.ID == id);
-            if (crew == null)
-            {
-                return NotFound();
-            }
-
-            return View(crew);
+            return View(await Crew.ToListAsync());
         }
 
         // GET: Crew/Create

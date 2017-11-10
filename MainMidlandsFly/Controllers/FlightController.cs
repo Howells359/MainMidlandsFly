@@ -19,10 +19,18 @@ namespace MainMidlandsFly.Controllers
         }
 
         // GET: Flight
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string IDSEARCH)
         {
-            return View(await _context.Flight.ToListAsync());
+            var flight = from a in _context.Flight
+                       select a;
+            if (!String.IsNullOrEmpty(IDSEARCH))
+            {
+                flight = flight.Where(a => a.FlightID.Contains(IDSEARCH));
+            }
+
+            return View(await flight.ToListAsync());
         }
+
 
         // GET: Flight/Details/5
         public async Task<IActionResult> Details(int? id)
